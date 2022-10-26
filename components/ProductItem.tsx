@@ -18,29 +18,23 @@ interface ProductItemProps {
     price: number;
     priceFormatted: string;
     title: string;
-  }
-  onAddToWishList: (id: number) => void;
+  } | undefined;
+  onAddToWishList: (id: number | undefined) => void;
 }
 
 function ProductItemComponent({ product, onAddToWishList }: ProductItemProps) {
   const [isAddingToWishList, setIsAddingToWishList] = useState(false);
 
-  // async function showFormattedData() {
-  //   const {format} = await import('date-fns');
-
-  //   format()
-  // }
-
   return (
     <div>
-      {product.title} - <strong>{product.priceFormatted}</strong>
+      {product?.title} - <strong>{product?.priceFormatted}</strong>
       <button onClick={() => setIsAddingToWishList(true)}>
         Adicionar aos favoritos
       </button>
 
       {isAddingToWishList && (
         <AddProductToWishlist
-          onAddToWishList={() => onAddToWishList(product.id)}
+          onAddToWishList={() => onAddToWishList(product?.id)}
           onRequestClose={() => setIsAddingToWishList(false)}
         />
       )}
